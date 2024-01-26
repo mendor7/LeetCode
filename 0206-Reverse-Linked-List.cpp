@@ -11,28 +11,22 @@
 class Solution {
 public:
     ListNode* reverseList(ListNode* head) {
+        ListNode* reversed = new ListNode();
         if (head == NULL) {
             return head;
         }
-        int count = 0;
-        vector<int> nums;
-        ListNode* reversed = new ListNode();
-        ListNode* traverse = new ListNode();
-        traverse = reversed;
         while (head != NULL) {
-            nums.push_back(head->val);
-            count++;
-            head = head->next;
-        }
-        while (count > 0) {
-            ListNode* next = new ListNode();
-            traverse->val = nums[count - 1];
-            count--;
-            if (count == 0) {
-                break;
+            if (head->next != NULL) {
+                ListNode* next = new ListNode();
+                next->val = head->val;
+                head = head->next;
+                next->next = reversed->next;
+                reversed->next = next;
             }
-            traverse->next = next;
-            traverse = traverse->next;
+            else {
+                reversed->val = head->val;
+                return reversed;
+            }
         }
         return reversed;
     }
